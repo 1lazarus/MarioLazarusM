@@ -18,7 +18,7 @@ game.PlayerEntity = me.Entity.extend({
         //sets the animation to run through 8-13
         ///the last number says we switch between pictures every 80 milliseconds
         
-        this.renderable.addAnimation("smallWalk", [8,9,10,11,12,13],10000); 
+        this.renderable.addAnimation("smallWalk", [8,9,10,11,12,13],80); 
 
         this.renderable.setCurrentAnimation("idle");
         //sets the speed we go on the x axis(first number) and y axis(second number)
