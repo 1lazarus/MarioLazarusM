@@ -11,7 +11,8 @@ game.resources = [
          {name: "Basketball", type:"image", src: "data/img/Basketball.png"},
          {name: "slime", type:"image", src: "data/img/slime-spritesheet.png"},
          {name: "galaxy", type:"image", src: "data/img/galaxy.png"},
-         
+         {name: "mushroom", type:"image", src: "data/img/mushroom.png"},
+             
 	/* Atlases 
 	 * @example
 	 * {name: "example_tps", type: "tps", src: "data/img/example_tps.json"},
