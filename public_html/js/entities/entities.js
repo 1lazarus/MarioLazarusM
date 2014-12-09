@@ -66,7 +66,10 @@ game.PlayerEntity = me.Entity.extend({
         return true;
     },
     collideHandler: function(response) {
-
+      if(response.b.type === 'badguy'){
+          var ydif = this.pos.y response.k.poo
+          me.state.change(me.state.MENU); 
+      }
     }
 
 });
