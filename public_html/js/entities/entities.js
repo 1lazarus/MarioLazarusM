@@ -137,12 +137,14 @@ game.BadGuy = me.Entity.extend({
              }else if(!this.walkLeft && this.pos.x >= this.endX){
                  this.walkLeft = true;
              }
-        }else{
-            me.game.world.removeChild(this);
-        }
-        this._super(me.Entity, "update", [delta]);
-        return true;
-        
-        
-    }
-}); 
+//             this.flipX(!this.walkLeft);
+//             this.body.vel.x += (this.walkLeft) ? -this.body.accel.x * me.timer.tick:this.body.accel.x * me.timer.tick;
+//        }else{
+//            me.game.world.removeChild(this);
+//        }
+//        this._super(me.Entity, "update", [delta]);
+//        return true;
+//        
+//        
+//    }
+//}); 
