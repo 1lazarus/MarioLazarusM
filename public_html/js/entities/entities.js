@@ -1,6 +1,7 @@
 // TODO
 
 game.PlayerEntity = me.Entity.extend({
+    //what the player will look like
     init: function(x, y, settings) {
         this._super(me.Entity, 'init', [x, y, {
                 image: "mario",
@@ -14,12 +15,14 @@ game.PlayerEntity = me.Entity.extend({
             }]);
 
         this.renderable.addAnimation("idle", [4]);
+        this.renderable.addAnimation("bigIdle", [19]);
         //create animation called smallwalk using pictures of tye image defined above(mario)
         //sets the animation to run through 8-13
         ///the last number says we switch between pictures every 80 milliseconds
 
         this.renderable.addAnimation("smallWalk", [8, 9, 10, 11, 12, 13], 80);
-
+        this.renderable.addAnimation("bigWalk", [14, 15, 16, 17, 18, 19], 80);
+        this.big = false;
         this.renderable.setCurrentAnimation("idle");
         //sets the speed we go on the x axis(first number) and y axis(second number)
         this.body.setVelocity(5, 20);
@@ -51,19 +54,32 @@ game.PlayerEntity = me.Entity.extend({
 
         me.collision.check(this, true, this.collideHandler.bind(this), true);
 
-        if (this.body.vel.x !== 0) {
-            if (!this.renderable.isCurrentAnimation("smallWalk")) {
-                this.renderable.setCurrentAnimation("smallWalk");
-                this.renderable.setAnimationFrame();
+        if (!this.big) {
+
+            if (this.body.vel.x !== 0) {
+                if (!this.renderable.isCurrentAnimation("smallWalk")) {
+                    this.renderable.setCurrentAnimation("smallWalk");
+                    this.renderable.setAnimationFrame();
+                }
+            } else {
+                this.renderable.setCurrentAnimation("idle");
             }
         } else {
-            this.renderable.setCurrentAnimation("idle");
-        }
+             if (this.body.vel.x !== 0) {
+                if (!this.renderable.isCurrentAnimation("bigWalk")) {
+                    this.renderable.setCurrentAnimation("bigWalk");
+                    this.renderable.setAnimationFrame();
+                }
+            } else {
+                this.renderable.setCurrentAnimation("bigIdle");
+            }
 
+        }
 
 
         this._super(me.Entity, "update", [delta]);
         return true;
+
     },
     collideHandler: function(response) {
         var ydif = this.pos.y - response.b.pos.y;
@@ -74,9 +90,13 @@ game.PlayerEntity = me.Entity.extend({
                 response.b.alive = false;
             } else {
                 me.state.change(me.state.MENU);
+                me.game.world.removeChild(this);
             }
 
 
+
+        } else if (response.b.type === 'mushroom') {
+            this.big = true;
 
         }
     }
@@ -107,6 +127,7 @@ game.LevelTrigger = me.Entity.extend({
 });
 game.BadGuy = me.Entity.extend({
     init: function(x, y, settings) {
+        //size of the badguy 
         this._super(me.Entity, 'init', [x, y, {
                 image: "slime",
                 spritewidth: "60",
