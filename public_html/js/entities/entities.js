@@ -97,6 +97,7 @@ game.PlayerEntity = me.Entity.extend({
 
         } else if (response.b.type === 'mushroom') {
             this.big = true;
+             me.game.world.removeChild(response.b);
 
         }
     }
